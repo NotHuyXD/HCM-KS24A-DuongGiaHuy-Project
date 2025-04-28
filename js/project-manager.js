@@ -3,6 +3,10 @@ let selectedProject=JSON.parse(localStorage.getItem("selectedProject")) || [];
 let projects=JSON.parse(localStorage.getItem("projects")) || [];
 let selectedIndex=-1;
 window.onload = function() {
+    if(!users.some(user=>user.onLogin==true)){
+      window.location.href="../pages/login.html";
+      return;
+    }
     if (selectedProject) {
     document.getElementById("taskboard-name").innerText = selectedProject.name;
     document.getElementById("taskboard-desc").innerText = selectedProject.description;
@@ -32,6 +36,7 @@ window.onload = function() {
     }
     localStorage.setItem("projects", JSON.stringify(projects));
   }
+
   function addTask(){
     clearErrors();
     const taskName = document.getElementById('task-name').value.trim();
@@ -67,6 +72,7 @@ window.onload = function() {
     document.getElementById('task-priority').value="";
     document.getElementById('task-progress').value="";
   }
+
   function renderTable(){
     const todoBody=document.getElementById("todoList");
 

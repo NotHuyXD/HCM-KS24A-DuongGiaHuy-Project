@@ -98,3 +98,7 @@ th{
 tr button{
     width:90px;
 }
+.onPage{
+    background-color: black;
+    color:white;
+}

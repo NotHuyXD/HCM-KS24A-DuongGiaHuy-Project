@@ -1,10 +1,18 @@
-let projects=[];
+let users = JSON.parse(localStorage.getItem('users')) || [];
+let projects = JSON.parse(localStorage.getItem('projects')) || [];
 const maxProjects=5;
 let paginEl=document.getElementById("pagination");
 let currentPage=1;
 let totalPage=1;
 let selectedIndex=-1;
 const detailBtn=document.getElementsByClassName("project-detail");
+
+window.onload=function(){
+    if(!users.some(user=>user.onLogin==true)){
+        window.location.href="../pages/login.html";
+        return;
+      }
+}
 
 if(!localStorage.getItem('projects')){
     localStorage.setItem('projects',JSON.stringify(projects));
