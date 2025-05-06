@@ -333,6 +333,33 @@ function initSampleData() {
                         progress: "onTime"
                     }
                 ]
+            },
+            {
+                id: 4,
+                name: "Quảng cáo sản phẩm",
+                description: "Quảng bá sản phẩm mới ra mắt",
+                tasks: [
+                    {
+                        id: 1,
+                        name: "Lên nội dung quảng cáo",
+                        assigner: "Dương Gia Huy",
+                        status: "completed",
+                        beginDate: "2025-05-24",
+                        endDate: "2025-05-30",
+                        priority: "Cao",
+                        progress: "onTime"
+                    },
+                    {
+                        id: 2,
+                        name: "Thiết kế banner",
+                        assigner: "Dương Gia Huy",
+                        status: "inProgress",
+                        beginDate: "2025-06-02",
+                        endDate: "2025-06-05",
+                        priority: "Cao",
+                        progress: "onTime"
+                    }
+                ]
             }
         ];
         localStorage.setItem("projects", JSON.stringify(defaultProjects));
