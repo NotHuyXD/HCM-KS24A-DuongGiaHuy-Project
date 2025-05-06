@@ -5,10 +5,16 @@ if(!localStorage.getItem("users")){
 else{   
     users=JSON.parse(localStorage.getItem("users"));
 }
+
+function clearErrors(){
+    document.querySelectorAll(".blank-input").forEach(e => e.remove());
+}
+
 function updateData(){
     localStorage.setItem("users",JSON.stringify(users));
 }
 function registerAccount() {
+    clearErrors();
     const email = document.getElementById("emailRegister").value.trim();
     const password = document.getElementById("passwordRegister").value.trim();
     const username = document.getElementById("nameRegister").value.trim();
@@ -29,6 +35,14 @@ function registerAccount() {
         return;
     }
 
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        let blank=document.createElement("p");
+        blank.className="blank-input";
+        blank.innerText="Email không hợp lệ"
+        document.getElementById("emailInput").appendChild(blank);
+        return;
+    }
+
     if (password.length ==0){
         let blank=document.createElement("p");
         blank.className="blank-input";
@@ -37,21 +51,30 @@ function registerAccount() {
         return;
     }
 
-    if( password !== confirmPassword) {
-        alert("Mật khẩu không khớp!");
-        return;
-    }
-
     if( password.length <8){
-        alert("Mật khẩu phải có ít nhất 8 ký tự!");
+        let blank=document.createElement("p");
+        blank.className="blank-input";
+        blank.innerText="Mật khẩu phải có ít nhất 8 ký tự"
+        document.getElementById("passwordInput").appendChild(blank);
         return;
     }
 
     const emailExist = users.some(user => user.email === email);
+
     if (emailExist) {
-        alert("Email đã tồn tại!");
+        let blank=document.createElement("p");
+        blank.className="blank-input";
+        blank.innerText="Email đã tồn tại"
+        document.getElementById("emailInput").appendChild(blank);
+        return;
         return;
     }
+
+    if( password !== confirmPassword) {
+        alert("Mật khẩu xác nhận không khớp!");
+        return;
+    }
+
     else {
         users.push({ name:username,email:email, password:password ,onLogin:false});
         localStorage.setItem("users", JSON.stringify(users));

@@ -18,8 +18,8 @@ function loginAccount() {
     const email = document.getElementById("emailLogin").value.trim();
     const password = document.getElementById("passwordLogin").value.trim();
 
-    users.forEach(user=>{
-        if(user.email==email && user.password==password){
+    let user = users.find(user=> user.email === email && user.password === password);
+        if(user){
             user.onLogin=true;
             updateData();
             window.location.href = "../pages/category-manager.html";
@@ -28,5 +28,4 @@ function loginAccount() {
             alert("Tên đăng nhập hoặc mật khẩu không đúng!");
             return;
         }
-    })
 }

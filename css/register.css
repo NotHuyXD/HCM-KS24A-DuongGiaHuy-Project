@@ -7,6 +7,7 @@ body{
     align-items: center;
     background-color: gainsboro;
 }
+
 .register-form{
     display: flex;
     flex-direction: column;
@@ -17,12 +18,14 @@ body{
     padding:20px;
     border-radius: 6px;
 }
+
 .register-form input{
     border:1px solid gray;
     border-radius: 6px;
     padding:20px 90px;
     text-align: center;
 }
+
 button{
     background-color: #2596be;
     border:0;
@@ -32,12 +35,14 @@ button{
     font-weight: bold;
     cursor:pointer
 }
+
 a{
     color:#2596be;
     text-decoration: none;
     font-weight: bold;
     text-align: center;
 }
+
 .blank-input{
     color:red;
 }

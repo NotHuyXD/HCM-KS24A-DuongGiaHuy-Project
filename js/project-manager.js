@@ -119,11 +119,11 @@ window.onload = function() {
         row.innerHTML=`
             <td style="width:20%">${task.name}</td>
             <td style="width:20%">${task.assigner}</td>
-            <td style="width:10%" class="${classPriority}">${task.priority}</td>
+            <td style="width:10%" class="${classPriority}"><span>${task.priority}</span></td>
             <td style="width:10%">${task.beginDate}</td>
             <td style="width:10%">${task.endDate}</td>
-            <td style="width:10%" class="${task.progress}">${progress}</td>
-            <td style="width:20%">
+            <td class="${task.progress}"><span>${progress}</span></td>
+            <td>
               <button class="btn btn-danger" onclick="setIndex(${index})" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
               <button class="btn btn-primary" onclick="setValueModal(${index})" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>
             </td>
@@ -257,12 +257,12 @@ function searchProject(){
           }
 
         row.innerHTML=`
-            <td style="width:20%">${task.name}</td>
-            <td style="width:20%">${task.assigner}</td>
-            <td style="width:10%" class="${classPriority}">${task.priority}</td>
-            <td style="width:10%">${task.beginDate}</td>
-            <td style="width:10%">${task.endDate}</td>
-            <td style="width:10%" class="${task.priority}">${progress}</td>
+            <td style="width:10%">${task.name}</td>
+            <td style="width:10%">${task.assigner}</td>
+            <td class="${classPriority}">${task.priority}</td>
+            <td>${task.beginDate}</td>
+            <td>${task.endDate}</td>
+            <td class="${task.priority}">${progress}</td>
             <td style="width:20%">
               <button class="btn btn-danger" onclick="setIndex(${index})" data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
               <button class="btn btn-primary" onclick="setValueModal(${index})" data-bs-toggle="modal" data-bs-target="#editModal">Sửa</button>

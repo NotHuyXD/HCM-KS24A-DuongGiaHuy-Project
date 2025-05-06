@@ -1,3 +1,4 @@
+initSampleData();
 let users = JSON.parse(localStorage.getItem('users')) || [];
 let projects = JSON.parse(localStorage.getItem('projects')) || [];
 const maxProjects=5;
@@ -5,6 +6,7 @@ let paginEl=document.getElementById("pagination");
 let currentPage=1;
 let totalPage=1;
 let selectedIndex=-1;
+  
 const detailBtn=document.getElementsByClassName("project-detail");
 
 window.onload=function(){
@@ -13,6 +15,7 @@ window.onload=function(){
         return;
       }
 }
+
 
 if(!localStorage.getItem('projects')){
     localStorage.setItem('projects',JSON.stringify(projects));
@@ -48,6 +51,23 @@ function addProject(){
         document.getElementById("name").appendChild(blank);
         return;
     }
+
+    if(projectName.length>30){
+        let blank=document.createElement("p");
+        blank.className="blank-input";
+        blank.innerText="Không được vượt quá 30 ký tự"
+        document.getElementById("name").appendChild(blank);
+        return;
+    }
+
+    if(projectName.length<4){
+        let blank=document.createElement("p");
+        blank.className="blank-input";
+        blank.innerText="Phải có tối thiểu 10 ký tự"
+        document.getElementById("name").appendChild(blank);
+        return;
+    }
+
     if(!projectDescription){
         let blank=document.createElement("p");
         blank.className="blank-input";
@@ -55,6 +75,23 @@ function addProject(){
         document.getElementById("description").appendChild(blank);
         return;
     }
+
+    if(projectDescription.length>100){
+        let blank=document.createElement("p");
+        blank.className="blank-input";
+        blank.innerText="Không được vượt quá 100 ký tự"
+        document.getElementById("description").appendChild(blank);
+        return;
+    }
+
+    if(projectDescription.length<4){
+        let blank=document.createElement("p");
+        blank.className="blank-input";
+        blank.innerText="Phải có tối thiểu 10 ký tự"
+        document.getElementById("description").appendChild(blank);
+        return;
+    }
+
     const modal = bootstrap.Modal.getInstance(
         document.getElementById("addModal")
       );
@@ -93,15 +130,26 @@ function setIndex(index){
 }
 
 function renderPagin() {
-    let paginHtml = ``;
+    let paginHtml = '';
+
+    paginHtml += `
+        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="setPage(${currentPage - 1})">Previous</a>
+        </li>`;
+
     for (let i = 1; i <= totalPage; i++) {
         paginHtml += `
-        <button onclick="setPage(${i})" class=${(i == currentPage) ? "onPage" : ""}>${i}</button>`;
+            <li class="page-item ${i === currentPage ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="setPage(${i})">${i}</a>
+            </li>`;
     }
-    paginEl.innerHTML = `
-    <button onclick="setPage(${currentPage - 1})"><</button>
-    ${paginHtml}
-    <button onclick="setPage(${currentPage + 1})">></button>`
+
+    paginHtml += `
+        <li class="page-item ${currentPage === totalPage ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="setPage(${currentPage + 1})">Next</a>
+        </li>`;
+
+    paginEl.innerHTML = `<ul class="pagination">${paginHtml}</ul>`;
 }
 
 function setPage(pageNumber) {
@@ -209,4 +257,84 @@ function goToDetail(index){
     const project=projects[selectedIndex];
     localStorage.setItem("selectedProject",JSON.stringify(project));
     window.location.href=`../pages/project-manager.html`;
+}
+
+function initSampleData() {
+
+    if (!localStorage.getItem("projects")) {
+        const defaultProjects = [
+            {
+                id: 1,
+                name: "Website Công ty",
+                description: "Phát triển website cho công ty ABC",
+                tasks: [
+                    {
+                        id: 1,
+                        name: "Thiết kế giao diện",
+                        assigner: "Nguyễn Văn A",
+                        status: "todo",
+                        beginDate: "2025-05-01",
+                        endDate: "2025-05-05",
+                        priority: "Cao",
+                        progress: "onTime"
+                    },
+                    {
+                        id: 2,
+                        name: "Lập trình frontend",
+                        assigner: "Trần Thị B",
+                        status: "inProgress",
+                        beginDate: "2025-05-02",
+                        endDate: "2025-05-10",
+                        priority: "Trung Bình",
+                        progress: "atRisk"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: "App Quản lý công việc",
+                description: "Ứng dụng quản lý dự án nội bộ",
+                tasks: [
+                    {
+                        id: 1,
+                        name: "Phân tích yêu cầu",
+                        assigner: "Phạm Thị D",
+                        status: "completed",
+                        beginDate: "2025-04-20",
+                        endDate: "2025-04-22",
+                        priority: "Cao",
+                        progress: "onTime"
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: "Thiết kế UI trang web",
+                description: "UI website đẹp mắt và dễ tiếp cận",
+                tasks: [
+                    {
+                        id: 1,
+                        name: "Lên ý tưởng",
+                        assigner: "Dương Gia Huy",
+                        status: "completed",
+                        beginDate: "2025-05-24",
+                        endDate: "2025-05-30",
+                        priority: "Cao",
+                        progress: "onTime"
+                    },
+                    {
+                        id: 2,
+                        name: "Thiết kế",
+                        assigner: "Dương Gia Huy",
+                        status: "inProgress",
+                        beginDate: "2025-06-02",
+                        endDate: "2025-06-05",
+                        priority: "Cao",
+                        progress: "onTime"
+                    }
+                ]
+            }
+        ];
+        localStorage.setItem("projects", JSON.stringify(defaultProjects));
+    }
 }

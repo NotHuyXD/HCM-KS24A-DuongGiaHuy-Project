@@ -34,14 +34,41 @@ projects.forEach((project, index) => {
 
   // Thêm từng task của project
   relatedTasks.forEach((task) => {
+        let classPriority;
+        let progress;
+        let status;
+
+        if (task.priority === "Cao") {
+        classPriority = "high";
+        } else if (task.priority === "Trung Bình") {
+        classPriority = "medium";
+        } else {
+        classPriority = "low";
+        }
+
+        if (task.progress === "onTime") {
+          progress = "Đúng tiến độ";
+          } else if (task.progress === "atRisk") {
+          progress = "Có rủi ro";
+          } else {
+          progress = "Trễ hạn";
+          }
+
+        if (task.status=="inProgress"){
+          status="Đang thực hiện";
+        } else if (task.status=="completed"){
+          status="Đã hoàn thành";
+        } else {
+          status="Chưa bắt đầu";
+        }
     section.innerHTML += `
       <tr class="task-${project.id-1}">
         <td>${task.name}</td>
-        <td>${task.status}</td>
-        <td>${task.priority}</td>
+        <td class="${classPriority}"><span>${task.priority}</span></td>
+        <td>${status}</td>
         <td>${task.beginDate}</td>
         <td>${task.endDate}</td>
-        <td>${task.progress}</td>
+        <td class="${task.progress}"><span>${progress}</span></td>
       </tr>
     `;
   });
